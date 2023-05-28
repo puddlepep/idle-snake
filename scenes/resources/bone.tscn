@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1c87uuluoege"]
+
+[ext_resource type="PackedScene" uid="uid://coxdq0mvn482c" path="res://scenes/resources/base.tscn" id="1_kifhq"]
+[ext_resource type="Texture2D" uid="uid://dk0djrsx3l0nr" path="res://bone.png" id="2_o1oyl"]
+
+[node name="bone" instance=ExtResource("1_kifhq")]
+resource = "bones"
+texture = ExtResource("2_o1oyl")
+
+[node name="sprite" parent="." index="0"]
+texture = ExtResource("2_o1oyl")

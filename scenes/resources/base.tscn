@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://coxdq0mvn482c"]
+
+[ext_resource type="Script" path="res://scripts/fruit.gd" id="1_1ns56"]
+[ext_resource type="Shader" path="res://shaders/see-through.gdshader" id="2_q5i6x"]
+[ext_resource type="Script" path="res://scripts/undershadow.gd" id="3_k0u3e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1myew"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_03hqj"]
+shader = ExtResource("2_q5i6x")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7cvpr"]
+radius = 20.0
+
+[node name="fruit" type="Area2D" groups=["item"]]
+z_index = 1000
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_1ns56")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+material = SubResource("ShaderMaterial_1myew")
+scale = Vector2(0.25, 0.25)
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="undershadow" type="Sprite2D" parent="." node_paths=PackedStringArray("target")]
+top_level = true
+texture_filter = 1
+material = SubResource("ShaderMaterial_03hqj")
+scale = Vector2(0.25, 0.25)
+script = ExtResource("3_k0u3e")
+target = NodePath("../sprite")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7cvpr")

@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfdje3g72qvie"]
+
+[ext_resource type="Script" path="res://scripts/ui/shop_button.gd" id="1_wwe3d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_b7tp7"]
+line_spacing = 0.0
+font_size = 20
+font_color = Color(0.729412, 0.509804, 0.552941, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h4uxm"]
+line_spacing = 0.0
+font_size = 28
+
+[sub_resource type="LabelSettings" id="LabelSettings_bokb5"]
+font_size = 18
+font_color = Color(0.560784, 0.984314, 0.709804, 1)
+
+[node name="upgrade" type="MarginContainer"]
+offset_right = 434.0
+offset_bottom = 56.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+script = ExtResource("1_wwe3d")
+
+[node name="button" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="container" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="separator" type="VBoxContainer" parent="container"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="upgrade_name" type="Label" parent="container/separator"]
+layout_mode = 2
+mouse_force_pass_scroll_events = false
+text = "upgrade name ?"
+label_settings = SubResource("LabelSettings_b7tp7")
+horizontal_alignment = 1
+
+[node name="upgrade_description" type="Label" parent="container/separator"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_force_pass_scroll_events = false
+text = "upgrade effect ."
+label_settings = SubResource("LabelSettings_h4uxm")
+horizontal_alignment = 1
+
+[node name="addition" type="Label" parent="container/separator/upgrade_description"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -8.5
+offset_right = 0.5
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_bokb5")
+metadata/_edit_use_anchors_ = true
+
+[node name="costs" type="HBoxContainer" parent="container/separator"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1

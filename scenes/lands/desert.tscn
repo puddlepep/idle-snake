@@ -1,0 +1,89 @@
+[gd_scene load_steps=14 format=3 uid="uid://gahi6fv3brls"]
+
+[ext_resource type="Script" path="res://scripts/lands/desert/desert.gd" id="1_t8wto"]
+[ext_resource type="Shader" path="res://shaders/noise.gdshader" id="2_igrfg"]
+[ext_resource type="Texture2D" uid="uid://de6uqj60wm85d" path="res://square.png" id="2_uf8b5"]
+[ext_resource type="Script" path="res://scripts/lands/snake_area.gd" id="4_b3adv"]
+[ext_resource type="Script" path="res://scripts/lands/water.gd" id="5_njpun"]
+[ext_resource type="PackedScene" path="res://scenes/cactus.tscn" id="5_s2e37"]
+[ext_resource type="Script" path="res://scripts/lands/scatter.gd" id="6_wc8sa"]
+[ext_resource type="Script" path="res://scripts/lands/scatter_exclusion.gd" id="8_kyynm"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e8e8v"]
+noise_type = 5
+seed = -21
+frequency = 0.014
+fractal_octaves = 3
+fractal_lacunarity = 0.772
+fractal_gain = 0.324
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xnvt0"]
+noise = SubResource("FastNoiseLite_e8e8v")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ref7"]
+shader = ExtResource("2_igrfg")
+shader_parameter/color = Color(0.905882, 0.768627, 0.588235, 1)
+shader_parameter/noise = SubResource("NoiseTexture2D_xnvt0")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y18vl"]
+size = Vector2(2000, 2000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rrxvl"]
+size = Vector2(320, 320)
+
+[node name="desert" type="Node2D"]
+script = ExtResource("1_t8wto")
+description = "woah, a desert :o"
+
+[node name="desert_floor" type="Sprite2D" parent="."]
+modulate = Color(0.905882, 0.768627, 0.588235, 1)
+material = SubResource("ShaderMaterial_3ref7")
+scale = Vector2(125, 125)
+texture = ExtResource("2_uf8b5")
+
+[node name="snake_area" type="Polygon2D" parent="."]
+position = Vector2(-42, -29)
+color = Color(1, 1, 1, 0.164706)
+polygon = PackedVector2Array(-148, -19, -120, -81, -78, -133, -18, -161, 46, -161, 108, -144, 131.909, -129.655, 173, -105, 190, -61, 226, -17, 242, 9, 245, 41, 243, 75, 234, 106, 212, 151, 169, 207, 114, 237, 46, 245, -12, 246, -74, 230, -128, 189, -163, 147, -175, 109, -175, 59)
+script = ExtResource("4_b3adv")
+type = 1
+
+[node name="oasis" type="Polygon2D" parent="snake_area"]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(129, -67, 98, -100, 92, -165, 89, -190, 93, -217, 108, -235, 128, -249, 148, -255, 173, -256, 200, -257, 230, -254, 260, -246, 286, -237, 307, -226, 346, -200, 392, -177, 424, -172, 450, -173, 475, -186, 496, -202, 524, -198, 536, -160, 534, -102, 527, -52, 521, -9, 532, 43, 553, 99, 544, 170, 503, 260, 483, 275, 454, 288, 405, 298, 362, 301, 335, 296, 312, 285, 290, 261, 277, 230, 273, 202, 270, 176, 263, 165, 248, 155, 234, 153, 217, 156, 178, 189, 175, 164, 205, 122, 203, 47, 151, -24)
+
+[node name="water" type="Polygon2D" parent="snake_area/oasis"]
+visible = false
+z_index = 5
+color = Color(0.266667, 0.505882, 0.827451, 0.313726)
+polygon = PackedVector2Array(321, 202, 339, 218, 365, 223, 412, 199, 446, 117, 486, 98, 470, 58, 460, 32, 446, -10, 439, -38, 435, -68, 429, -94, 416, -118, 394, -135, 356, -150, 329, -153, 298, -148, 271, -132, 256, -113, 244, -87, 246, -58, 254, -31, 273, 0, 279, 27, 270, 58, 270, 85, 282, 118, 297, 142, 309, 172)
+script = ExtResource("5_njpun")
+
+[node name="expansion_2" type="Polygon2D" parent="snake_area"]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(22, 243, -43, 251, -61, 258, -82, 269, -119, 287, -150, 298, -189, 306, -229, 310, -251, 311, -283, 309, -312, 304, -343, 291, -355, 283, -366, 276, -377, 272, -395, 272, -410, 274, -425, 279, -440, 282, -454, 279, -466, 271, -471, 262, -476, 249, -476, 234, -471, 217, -461, 190, -458, 176, -457, 160, -458, 143, -461, 129, -465, 109, -471, 88, -474, 78, -474, 68, -466, 62, -456, 61, -444, 56, -434, 49, -426, 42, -420, 34, -414, 22, -412, 10, -413, -6, -415, -20, -420, -32, -429, -45, -436, -55, -442, -65, -446, -75, -449, -91, -454, -162, -450, -199, -438, -215, -424, -229, -406, -240, -384, -249, -361, -255, -340, -258, -314, -261, -286, -262, -260, -262, -240, -261, -230, -259, -222, -255, -218, -249, -221, -239, -230, -230, -239, -223, -254, -215, -269, -207, -286, -197, -298, -186, -307, -172, -310, -149, -308, -120, -303, -106, -297, -94, -286, -83, -270, -73, -249, -65, -234, -63, -218, -62, -191, -62, -167, -65, -144, -72, -99, -100)
+
+[node name="spawn" type="Node2D" parent="."]
+
+[node name="cactus_scatter" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_y18vl")
+debug_color = Color(1, 1, 1, 0)
+script = ExtResource("6_wc8sa")
+scatter_object = ExtResource("5_s2e37")
+seed = 34
+count = 100
+scale_range = Vector2(0.75, 1.5)
+rotation_range = Vector2(0, 100)
+brightness_range = Vector2(-0.2, 0.4)
+
+[node name="exclusion" type="CollisionShape2D" parent="cactus_scatter"]
+shape = SubResource("RectangleShape2D_rrxvl")
+debug_color = Color(0.956863, 0, 0.0666667, 0.290196)
+script = ExtResource("8_kyynm")
+
+[node name="cactus" parent="." instance=ExtResource("5_s2e37")]
+position = Vector2(-60, 103)
+
+[node name="dummy" type="Camera2D" parent="."]
+enabled = false
+zoom = Vector2(1.5, 1.5)

@@ -1,0 +1,536 @@
+[gd_scene load_steps=44 format=3 uid="uid://b0ycy6sms3axh"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_7a3mp"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="2_ebim5"]
+[ext_resource type="PackedScene" uid="uid://bbmg55dldhb1u" path="res://scenes/lands/forest.tscn" id="2_we5kv"]
+[ext_resource type="PackedScene" uid="uid://gahi6fv3brls" path="res://scenes/lands/desert.tscn" id="3_yq1iu"]
+[ext_resource type="Shader" path="res://shaders/world_fade.gdshader" id="4_3u6ix"]
+[ext_resource type="PackedScene" uid="uid://bhq2ywvffncmb" path="res://scenes/lands/beach.tscn" id="4_8mrcc"]
+[ext_resource type="Script" path="res://scripts/ui/score_counter.gd" id="4_o0bgy"]
+[ext_resource type="Shader" path="res://shaders/pixelator.gdshader" id="4_ucbwu"]
+[ext_resource type="Script" path="res://scripts/distance_fade.gd" id="5_u3ica"]
+[ext_resource type="Theme" uid="uid://bcedpgb6unywf" path="res://ui_theme.tres" id="5_wvib5"]
+[ext_resource type="Texture2D" uid="uid://bb50hbd4p1jja" path="res://snake.png" id="6_ftsco"]
+[ext_resource type="Script" path="res://scripts/ui/ui.gd" id="7_nruq7"]
+[ext_resource type="Script" path="res://scripts/ui/sliding_menus/shop.gd" id="8_lbna3"]
+[ext_resource type="Script" path="res://scripts/ui/death_screen.gd" id="8_lwecb"]
+[ext_resource type="Script" path="res://scripts/ui/item_list.gd" id="8_rrstg"]
+[ext_resource type="PackedScene" uid="uid://bwxx13p6aoix5" path="res://scenes/inventory_resource.tscn" id="9_bclwh"]
+[ext_resource type="Script" path="res://scripts/ui/sliding_menus/bag.gd" id="10_2qn7y"]
+[ext_resource type="Texture2D" uid="uid://dywrb4sbi3yni" path="res://apple.png" id="13_3wget"]
+[ext_resource type="Script" path="res://scripts/ui/map.gd" id="13_gs40x"]
+[ext_resource type="Script" path="res://scripts/ui/button_bar/bag.gd" id="15_vn5e5"]
+[ext_resource type="Script" path="res://scripts/ui/button_bar/shop.gd" id="16_q4qq8"]
+[ext_resource type="Script" path="res://scripts/ui/button_bar/map.gd" id="17_oel2j"]
+[ext_resource type="Script" path="res://scripts/ui/joystick.gd" id="18_fc8dj"]
+[ext_resource type="Texture2D" uid="uid://cy1tofbwsorja" path="res://drawer.png" id="24_8i4gu"]
+[ext_resource type="Script" path="res://scripts/ui/menu.gd" id="24_n0wq1"]
+[ext_resource type="Script" path="res://scripts/ui/drawer/bag.gd" id="26_vqxro"]
+[ext_resource type="Script" path="res://scripts/ui/drawer/shop.gd" id="27_ovkig"]
+[ext_resource type="Script" path="res://scripts/ui/map_button.gd" id="28_hxg64"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3kp56"]
+shader = ExtResource("4_3u6ix")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_moivo"]
+shader = ExtResource("4_ucbwu")
+shader_parameter/resolution = Vector2(200, 200)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5kf1n"]
+font_size = 32
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2gy4q"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_sqoun"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_no1vh"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lxemr"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_n6q4q"]
+font_size = 28
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5vi1e"]
+texture = ExtResource("24_8i4gu")
+
+[sub_resource type="LabelSettings" id="LabelSettings_5mggf"]
+font_size = 32
+font_color = Color(0.00392157, 0.721569, 0.952941, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xipid"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_a7mxc"]
+font_size = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_giybv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2b2kv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h3llo"]
+
+[node name="world" type="Node2D"]
+script = ExtResource("1_7a3mp")
+
+[node name="lands" type="Node2D" parent="."]
+
+[node name="forest" parent="lands" instance=ExtResource("2_we5kv")]
+
+[node name="desert" parent="lands" instance=ExtResource("3_yq1iu")]
+position = Vector2(2000, 0)
+
+[node name="beach" parent="lands" instance=ExtResource("4_8mrcc")]
+position = Vector2(4000, 0)
+
+[node name="distance_fade" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_3kp56")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("5_u3ica")
+
+[node name="camera" type="Camera2D" parent="."]
+script = ExtResource("2_ebim5")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("7_nruq7")
+
+[node name="pixel shader ?" type="Panel" parent="UI"]
+visible = false
+material = SubResource("ShaderMaterial_moivo")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="score_counter" type="Label" parent="UI"]
+anchors_preset = -1
+anchor_top = 0.1
+anchor_bottom = 0.1
+offset_left = 20.0
+offset_top = -29.0
+offset_right = 974.0
+offset_bottom = 19.0
+text = "score: yeah, there is"
+label_settings = SubResource("LabelSettings_5kf1n")
+autowrap_mode = 2
+script = ExtResource("4_o0bgy")
+
+[node name="items" type="MarginContainer" parent="UI"]
+anchors_preset = -1
+anchor_top = 0.1
+anchor_bottom = 0.9
+offset_right = 775.0
+grow_vertical = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+theme = ExtResource("5_wvib5")
+script = ExtResource("8_rrstg")
+
+[node name="container" type="VBoxContainer" parent="UI/items"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="upgrade_panel" type="Panel" parent="UI"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_wvib5")
+script = ExtResource("8_lbna3")
+invert_direction = true
+metadata/_edit_use_anchors_ = true
+
+[node name="label" type="Label" parent="UI/upgrade_panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.5
+offset_right = 72.5
+offset_bottom = 81.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "shop"
+label_settings = SubResource("LabelSettings_2gy4q")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="snake_diagram" type="MarginContainer" parent="UI/upgrade_panel"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="texture" type="TextureRect" parent="UI/upgrade_panel/snake_diagram"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("6_ftsco")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="upgrades" type="MarginContainer" parent="UI/upgrade_panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="scroll_container" type="ScrollContainer" parent="UI/upgrade_panel/upgrades"]
+layout_mode = 2
+
+[node name="vbox_container" type="VBoxContainer" parent="UI/upgrade_panel/upgrades/scroll_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="inventory_panel" type="Panel" parent="UI"]
+visible = false
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_wvib5")
+script = ExtResource("10_2qn7y")
+
+[node name="tab_container" type="TabContainer" parent="UI/inventory_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+clip_tabs = false
+
+[node name="test" type="MarginContainer" parent="UI/inventory_panel/tab_container"]
+layout_mode = 2
+
+[node name="container" type="VBoxContainer" parent="UI/inventory_panel/tab_container/test"]
+layout_mode = 2
+
+[node name="resource" parent="UI/inventory_panel/tab_container/test/container" instance=ExtResource("9_bclwh")]
+layout_mode = 2
+
+[node name="map_ui" type="Control" parent="UI"]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("5_wvib5")
+script = ExtResource("13_gs40x")
+
+[node name="description" type="Panel" parent="UI/map_ui"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.33
+anchor_top = 0.8
+anchor_right = 0.66
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="name" type="Label" parent="UI/map_ui/description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "forest"
+label_settings = SubResource("LabelSettings_sqoun")
+horizontal_alignment = 1
+
+[node name="desc" type="Label" parent="UI/map_ui/description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+text = ":o"
+horizontal_alignment = 1
+
+[node name="resources" type="Panel" parent="UI/map_ui"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.33
+anchor_top = 0.93
+anchor_right = 0.66
+anchor_bottom = 0.98
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="title" type="Label" parent="UI/map_ui/resources"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.5
+anchor_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "available resources"
+label_settings = SubResource("LabelSettings_no1vh")
+horizontal_alignment = 1
+
+[node name="margin" type="MarginContainer" parent="UI/map_ui/resources"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="container" type="HBoxContainer" parent="UI/map_ui/resources/margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/map_ui/resources/margin/container"]
+layout_mode = 2
+texture = ExtResource("13_3wget")
+expand_mode = 2
+
+[node name="button_bar" type="MarginContainer" parent="UI"]
+visible = false
+anchors_preset = -1
+anchor_top = 0.9
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 10
+
+[node name="container" type="HBoxContainer" parent="UI/button_bar"]
+layout_mode = 2
+
+[node name="bag" type="Button" parent="UI/button_bar/container"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "bag"
+script = ExtResource("15_vn5e5")
+
+[node name="shop" type="Button" parent="UI/button_bar/container"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "shop"
+script = ExtResource("16_q4qq8")
+
+[node name="map" type="Button" parent="UI/button_bar/container"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "map"
+script = ExtResource("17_oel2j")
+
+[node name="death_screen" type="Panel" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_lwecb")
+
+[node name="label" type="Label" parent="UI/death_screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "dead"
+label_settings = SubResource("LabelSettings_lxemr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="desc_label" type="Label" parent="UI/death_screen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "
+
+tap the screen to respawn"
+label_settings = SubResource("LabelSettings_n6q4q")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="joystick" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("18_fc8dj")
+
+[node name="drawer" type="Panel" parent="UI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -90.0
+offset_bottom = 2070.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_5vi1e")
+script = ExtResource("24_n0wq1")
+
+[node name="category_names" type="HBoxContainer" parent="UI/drawer"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.0300926
+anchor_right = 1.0
+anchor_bottom = -0.0037037
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="bag" type="Label" parent="UI/drawer/category_names"]
+layout_mode = 2
+text = "bag    "
+label_settings = SubResource("LabelSettings_5mggf")
+
+[node name="shop" type="Label" parent="UI/drawer/category_names"]
+layout_mode = 2
+text = "shop   "
+label_settings = SubResource("LabelSettings_xipid")
+
+[node name="options" type="Label" parent="UI/drawer/category_names"]
+layout_mode = 2
+text = "options"
+label_settings = SubResource("LabelSettings_a7mxc")
+
+[node name="content" type="HBoxContainer" parent="UI/drawer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0220741
+anchor_top = 0.05
+anchor_right = 2.89
+anchor_bottom = 1.0
+offset_left = 0.159998
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 100
+metadata/_edit_use_anchors_ = true
+
+[node name="bag" type="Panel" parent="UI/drawer/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_giybv")
+script = ExtResource("26_vqxro")
+
+[node name="content" type="MarginContainer" parent="UI/drawer/content/bag"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="container" type="VBoxContainer" parent="UI/drawer/content/bag/content"]
+layout_mode = 2
+
+[node name="shop" type="Panel" parent="UI/drawer/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2b2kv")
+script = ExtResource("27_ovkig")
+
+[node name="content" type="MarginContainer" parent="UI/drawer/content/shop"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="scroll" type="ScrollContainer" parent="UI/drawer/content/shop/content"]
+layout_mode = 2
+
+[node name="upgrade_container" type="VBoxContainer" parent="UI/drawer/content/shop/content/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="options" type="Panel" parent="UI/drawer/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_h3llo")
+
+[node name="map_button" type="Button" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -91.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 92.0
+grow_horizontal = 0
+focus_mode = 0
+text = "map"
+script = ExtResource("28_hxg64")
+
+[connection signal="pressed" from="UI/button_bar/container/bag" to="UI/button_bar/container/bag" method="_on_pressed"]
+[connection signal="pressed" from="UI/button_bar/container/shop" to="UI/button_bar/container/shop" method="_on_pressed"]
+[connection signal="pressed" from="UI/button_bar/container/map" to="UI/button_bar/container/map" method="_on_pressed"]

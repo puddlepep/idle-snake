@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://d32rbf63k7kx0"]
+
+[ext_resource type="Script" path="res://scripts/snake.gd" id="1_qwwxw"]
+[ext_resource type="Texture2D" uid="uid://2wic0ieirrsw" path="res://circle.png" id="2_iv324"]
+
+[sub_resource type="Gradient" id="Gradient_nl85i"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.0823529)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ns85"]
+radius = 12.0
+
+[node name="snake" type="Node2D"]
+script = ExtResource("1_qwwxw")
+
+[node name="trail" type="Line2D" parent="."]
+width = 32.0
+gradient = SubResource("Gradient_nl85i")
+
+[node name="body" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 1)
+width = 32.0
+default_color = Color(0.411765, 0.262745, 0.227451, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="head" type="Node2D" parent="."]
+
+[node name="head_collider" type="Area2D" parent="head" groups=["snake"]]
+collision_mask = 7
+
+[node name="shape" type="CollisionShape2D" parent="head/head_collider"]
+shape = SubResource("CircleShape2D_8ns85")
+
+[node name="left_eye" type="Sprite2D" parent="head"]
+position = Vector2(-5, -8)
+scale = Vector2(0.00724708, 0.0102222)
+texture = ExtResource("2_iv324")
+
+[node name="right_eye" type="Sprite2D" parent="head"]
+position = Vector2(5, -8)
+scale = Vector2(0.00724708, 0.0102222)
+texture = ExtResource("2_iv324")
+
+[node name="collider" type="Area2D" parent="." groups=["snake"]]
+collision_mask = 0
+
+[connection signal="area_entered" from="head/head_collider" to="." method="_on_head_collided"]

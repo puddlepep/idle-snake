@@ -1,0 +1,81 @@
+[gd_scene load_steps=13 format=3 uid="uid://bbmg55dldhb1u"]
+
+[ext_resource type="Script" path="res://scripts/lands/forest/forest.gd" id="1_5annx"]
+[ext_resource type="Texture2D" uid="uid://de6uqj60wm85d" path="res://square.png" id="2_d8mvj"]
+[ext_resource type="Script" path="res://scripts/lands/snake_area.gd" id="3_2652n"]
+[ext_resource type="PackedScene" path="res://scenes/leaf.tscn" id="4_2jr36"]
+[ext_resource type="Script" path="res://scripts/lands/scatter.gd" id="4_b68kw"]
+[ext_resource type="Script" path="res://scripts/lands/scatter_exclusion.gd" id="6_jj86n"]
+[ext_resource type="PackedScene" path="res://scenes/tree.tscn" id="7_p8kmn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xrai"]
+size = Vector2(300, 300)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7582i"]
+size = Vector2(2000, 2000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yi2hb"]
+size = Vector2(550, 550)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xe7pt"]
+size = Vector2(2000, 2000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqk4y"]
+size = Vector2(300, 300)
+
+[node name="forest" type="Node2D"]
+script = ExtResource("1_5annx")
+description = "a cozy lil forest :)"
+
+[node name="forest_floor" type="Sprite2D" parent="."]
+modulate = Color(0.121569, 0.298039, 0.152941, 1)
+scale = Vector2(125, 125)
+texture = ExtResource("2_d8mvj")
+
+[node name="snake_area" type="Polygon2D" parent="."]
+color = Color(0, 0, 0, 0.101961)
+polygon = PackedVector2Array(-150, -150, 150, -150, 150, 150, -150, 150)
+script = ExtResource("3_2652n")
+square_size = Vector2(300, 300)
+
+[node name="leaf_scatter" type="CollisionShape2D" parent="snake_area"]
+shape = SubResource("RectangleShape2D_7xrai")
+debug_color = Color(1, 1, 1, 0)
+script = ExtResource("4_b68kw")
+scatter_object = ExtResource("4_2jr36")
+scale_range = Vector2(0.05, 0.15)
+rotation_range = Vector2(0, 100)
+brightness_range = Vector2(-0.3, 0.2)
+
+[node name="bg_leaf_scatter" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7582i")
+debug_color = Color(1, 1, 1, 0)
+script = ExtResource("4_b68kw")
+scatter_object = ExtResource("4_2jr36")
+count = 500
+scale_range = Vector2(0.1, 0.25)
+rotation_range = Vector2(0, 100)
+brightness_range = Vector2(-0.5, -0.3)
+
+[node name="exclusion" type="CollisionShape2D" parent="bg_leaf_scatter"]
+position = Vector2(-5, -2)
+shape = SubResource("RectangleShape2D_yi2hb")
+debug_color = Color(0.956863, 0, 0.0666667, 0.290196)
+script = ExtResource("6_jj86n")
+
+[node name="tree_scatter" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 4)
+shape = SubResource("RectangleShape2D_xe7pt")
+debug_color = Color(1, 1, 1, 0)
+script = ExtResource("4_b68kw")
+scatter_object = ExtResource("7_p8kmn")
+count = 500
+scale_range = Vector2(0.1, 0.2)
+rotation_range = Vector2(0, 100)
+brightness_range = Vector2(-0.3, 0.1)
+
+[node name="exclusion" type="CollisionShape2D" parent="tree_scatter"]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_pqk4y")
+debug_color = Color(0.956863, 0, 0.0666667, 0.290196)
+script = ExtResource("6_jj86n")

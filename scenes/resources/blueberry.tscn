@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0mb305dt5gbb"]
+
+[ext_resource type="PackedScene" uid="uid://coxdq0mvn482c" path="res://scenes/resources/base.tscn" id="1_i28fl"]
+[ext_resource type="Texture2D" uid="uid://c51cgks4baflw" path="res://blueberry.png" id="2_ipabs"]
+
+[node name="blueberry" instance=ExtResource("1_i28fl")]
+resource = "blueberries"
+texture = ExtResource("2_ipabs")
+
+[node name="sprite" parent="." index="0"]
+texture = ExtResource("2_ipabs")

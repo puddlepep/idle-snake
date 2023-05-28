@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwxx13p6aoix5"]
+
+[ext_resource type="Texture2D" uid="uid://dywrb4sbi3yni" path="res://apple.png" id="1_2y4n4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d1qyx"]
+font_size = 32
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[node name="resource" type="HBoxContainer"]
+offset_right = 66.0
+offset_bottom = 37.0
+
+[node name="icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_2y4n4")
+expand_mode = 2
+
+[node name="label" type="Label" parent="."]
+layout_mode = 2
+text = ":D"
+label_settings = SubResource("LabelSettings_d1qyx")

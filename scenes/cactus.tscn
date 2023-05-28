@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" uid="uid://vxwix37qnmb3" path="res://cactus2.png" id="1_ppahb"]
+[ext_resource type="Script" path="res://scripts/lands/desert/cactus.gd" id="1_s1qqv"]
+
+[node name="cactus" type="Area2D" groups=["cactus", "wall"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_s1qqv")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_ppahb")
+
+[node name="collider" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(15.6, -46, 26, -48.6, 26, -45.5, 32, -37, 42, -38.3, 42, -35, 45.5, -21.9, 53, -19.4, 53, -16.2, 46.2, -8.5, 54, 0.199997, 54, 3, 49, 7, 52.5, 22, 49.7, 22, 43, 27.9, 43, 28.7, 45.8, 37, 36.1, 37, 30, 38.5, 30, 50, 26.6, 50, 16.5, 45.8, 10, 46.7, 2.8, 54, 0.199997, 54, -7.7, 46.1, -23, 51.9, -23, 45.6, -27, 40, -28.2, 40, -40, 37.6, -40, 29.4, -38.9, 27.7, -40.2, 25, -41.3, 25, -50, 22.5, -50, 16.5, -47.7, 12, -56.3, -4, -52.7, -4, -46.1, -9.8, -52, -24, -47.4, -24, -39, -25.7, -35, -29, -35, -30, -36.2, -43, -30.9, -43, -22.7, -42.2, -13.8, -50, -10.6, -50, -5.1, -47.6, 2, -51.2, 2, -52.2, 4.1, -53.3)
